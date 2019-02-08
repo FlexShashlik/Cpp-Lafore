@@ -1,0 +1,33 @@
+// englref.cpp
+// разыменование указател€, возвращаемого оператором new
+#include <iostream>
+using namespace std;
+///////////////////////////////////////////////////////////
+class Distance
+{
+private:
+	int feet;
+	float inches;
+public:
+	void getdist()		// получение информации
+	{
+		cout << "\n¬ведите футы: "; cin >> feet;
+		cout << "¬ведите дюймы: "; cin >> inches;
+	}
+	void showdist()		// вывод информации
+	{ 
+		cout << feet << "\'-" << inches << '\"';
+	}
+};
+///////////////////////////////////////////////////////////
+int main()
+{
+	system("chcp 1251 > nul");
+
+	Distance& dist = *(new Distance); // создаем объект типа Distance
+	dist.getdist();		// доступ к членам класса осуществл€ем через оператор "."
+	dist.showdist();
+	cout << endl;
+
+	return 0;
+}

@@ -1,0 +1,29 @@
+// table.cpp
+// demonstrates simple function
+#include <iostream>
+using namespace std;
+void starline();          // объявление функции (прототип)
+
+int main()
+{
+	system("chcp 1251 > nul");
+
+	starline();					 // вызов функции
+	cout << "Тип данных Диапазон" << endl;
+	starline();					 // вызов функции
+	cout << "char	-128...127" << endl
+		<< "short	-32 768...32 767" << endl
+		<< "int	Системно-зависимый" << endl
+		<< "long -2 147 483 648...2 147 483 647" << endl;
+	starline();					 // вызов функции
+
+	return 0;
+}
+//--------------------------------------------------------
+// определение функции starline()
+void starline()					 // заголовок функции
+{
+	for(int j = 0; j < 45; j++)  // тело функции
+		cout << '*';
+	cout << endl;
+}

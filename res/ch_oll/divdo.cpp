@@ -1,0 +1,22 @@
+// divdo.cpp
+// применение цикла do
+#include <iostream>
+using namespace std;
+int main()
+{
+	system("chcp 1251 > nul");
+
+	long dividend, divisor;
+	char ch;
+	do	// начало цикла do
+	{	// действи€
+		cout << "¬ведите делимое: "; cin >> dividend;
+		cout << "¬ведите делитель: "; cin >> divisor;
+		cout << "„астное равно " << dividend / divisor;
+		cout << ", остаток равен " << dividend % divisor;
+		cout << "\n≈ще раз?(y/n): ";
+		cin >> ch;
+	}
+	while(ch != 'n'); // условие цикла
+	return 0;
+}

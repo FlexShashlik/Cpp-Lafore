@@ -1,0 +1,27 @@
+// badalloc.cpp
+// Демонстрация исключения bad_alloc 
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	system("chcp 1251 > nul");
+
+	const unsigned long SIZE = 10000; // объем памяти
+	char* ptr;                // указатель на адрес в памяти
+
+	try
+	{
+		ptr = new char[SIZE]; // разместить в памяти SIZE байт
+	}
+	catch(bad_alloc)          // обработчик исключений
+	{
+		cout << "\n Исключение bad_alloc: невозможно разместить данные в памяти.\n";
+		return (1);
+	}
+
+	delete[] ptr;             // освободить память
+	cout << "\nПамять используется без сбоев.\n";
+
+	return 0;
+}

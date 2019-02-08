@@ -1,0 +1,26 @@
+// convert.cpp
+// демонстрирует механизм возврата значения функцией
+#include <iostream>
+using namespace std;
+float lbstokg(float);	// прототип функции
+
+int main()	
+{
+	system("chcp 1251 > nul");
+
+	float lbs, kgs;
+	cout << "\nВведите вес в фунтах: ";
+	cin >> lbs;
+	kgs = lbstokg(lbs);
+	cout << "Вес в килограммах равен " << kgs << endl;
+
+	return 0;
+}
+//--------------------------------------------------------
+// функция lbstokg()
+// переводит фунты в килограммы
+float lbstokg(float pounds)
+{
+	float kilograms = 0.453592 * pounds;
+	return kilograms;
+}

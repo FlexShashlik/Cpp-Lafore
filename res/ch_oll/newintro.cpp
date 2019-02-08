@@ -1,0 +1,20 @@
+// newintro.cpp
+// познакомимся с оператором new
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+	system("chcp 1251 > nul");
+
+	char* str = "Дурная голова ногам покоя не дает.";
+	int len = strlen(str);           // вычислим длину нашей строки
+	char* ptr;                       // определим переменную
+	ptr = new char[len +1];          // выделим память
+	strcpy(ptr, str);                // скопируем строку str в ptr
+	cout << "ptr = " << ptr << endl; // покажем что содержится в ptr
+	delete[] ptr;                    // освободим выделенную память
+
+	return 0;
+}

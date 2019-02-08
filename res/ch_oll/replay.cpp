@@ -1,0 +1,22 @@
+// replay.cpp
+// запоминание и вывод на экран информации, введенной пользователем
+#include <iostream>
+using namespace std;
+///////////////////////////////////////////////////////////
+int main()
+{
+	system("chcp 1251 > nul");
+
+	int age[4];
+
+	for(int j = 0; j < 4; j++)
+	{
+		cout << "Введите возраст: ";
+		cin >> age[j];
+	}
+
+	for(j = 0; j < 4; j++)
+		cout << "Вы ввели: " << age[j] << endl;
+
+	return 0;
+}
