@@ -38,7 +38,7 @@ public:
 	}
 	float& operator*()
 	{
-		return *(fmemory+*(pmemory+addr));
+		return *(fmemory + *(pmemory + addr));
 	}
 };
 
