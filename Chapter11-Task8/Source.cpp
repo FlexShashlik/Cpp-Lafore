@@ -127,11 +127,21 @@ void express::parse()
 				{
 					switch(lastop)				//do last operation
 					{							//push result on stack
-						case '+': s.pushNumber(s.popNumber() + lastval); break;
-						case '-': s.pushNumber(s.popNumber() - lastval); break;
-						case '*': s.pushNumber(s.popNumber() * lastval); break;
-						case '/': s.pushNumber(s.popNumber() / lastval); break;
-						default:  cout << "\nUnknown oper"; exit(1);
+						case '+':
+							s.pushNumber(s.popNumber() + lastval);
+							break;
+						case '-':
+							s.pushNumber(s.popNumber() - lastval);
+							break;
+						case '*':
+							s.pushNumber(s.popNumber() * lastval);
+							break;
+						case '/':
+							s.pushNumber(s.popNumber() / lastval);
+							break;
+						default:
+							cout << "\nUnknown oper";
+							exit(1);
 					}
 				}
 				s.pushOperator(*ch);			//put current op on stack
@@ -155,11 +165,21 @@ float express::solve()
       lastval = s.popNumber();
       switch(s.popOperator())
       {
-         case '+': s.pushNumber(s.popNumber() + lastval); break;
-         case '-': s.pushNumber(s.popNumber() - lastval); break;
-         case '*': s.pushNumber(s.popNumber() * lastval); break;
-         case '/': s.pushNumber(s.popNumber() / lastval); break;
-         default:  cout << "\nUnknown operator"; exit(1);
+         case '+': 
+			 s.pushNumber(s.popNumber() + lastval); 
+			 break;
+         case '-':
+			 s.pushNumber(s.popNumber() - lastval);
+			 break;
+         case '*':
+			 s.pushNumber(s.popNumber() * lastval);
+			 break;
+         case '/':
+			 s.pushNumber(s.popNumber() / lastval);
+			 break;
+         default:
+			 cout << "\nUnknown operator";
+			 exit(1);
       }
    }
    return s.popNumber();
@@ -171,7 +191,7 @@ int main()
 	char string[LEN];
    
 	cout << "\nEnter an arithmetic expression"
-			"\nof the form 2 +3.5 * 4.24 / 3.2425 - 2."
+			"\nof the form 2 + 3.5 * 4.24 / 3.2425 - 2"
 			"\nUse spaces!\n";
 	do 
 	{
