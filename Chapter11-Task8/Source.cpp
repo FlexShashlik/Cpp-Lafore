@@ -57,12 +57,12 @@ public:
     Stack()
         { top = -1; }
 
-    void pushOperator(char var)
+    void push(char var)
     { 
 		token[++top] = new Operator(var); 
 	}
 
-	void pushNumber(float var)
+	void push(float var)
 	{
 		token[++top] = new Number(var);
 	}
@@ -110,8 +110,10 @@ void express::parse()
    {
 		if(*ch=='+' || *ch=='-' || *ch=='*' || *ch=='/')
 		{
-			if(s.gettop() == 0)					//if it's first operator
-				s.pushOperator(*ch);            //put on stack
+			if (s.gettop() == 0) {			//if it's first operator
+				//s.pushOperator(*ch);            //put on stack
+				s.push(*ch);
+			}
 			else								//not first operator
 			{
 				lastval = s.popNumber();		//get previous digit
@@ -120,36 +122,36 @@ void express::parse()
 				if( (*ch=='*' || *ch=='/') &&
 					(lastop=='+' || lastop=='-') )
 					{
-						s.pushOperator(lastop);	//restore last two pops
-						s.pushNumber(lastval);
+						s.push(lastop);	//restore last two pops
+						s.push(lastval);
 					}
 				else							//in all other cases
 				{
 					switch(lastop)				//do last operation
 					{							//push result on stack
 						case '+':
-							s.pushNumber(s.popNumber() + lastval);
+							s.push(s.popNumber() + lastval);
 							break;
 						case '-':
-							s.pushNumber(s.popNumber() - lastval);
+							s.push(s.popNumber() - lastval);
 							break;
 						case '*':
-							s.pushNumber(s.popNumber() * lastval);
+							s.push(s.popNumber() * lastval);
 							break;
 						case '/':
-							s.pushNumber(s.popNumber() / lastval);
+							s.push(s.popNumber() / lastval);
 							break;
 						default:
 							cout << "\nUnknown oper";
 							exit(1);
 					}
 				}
-				s.pushOperator(*ch);			//put current op on stack
+				s.push(*ch);			//put current op on stack
 			}
 		}
 		else
 		{
-			s.pushNumber(atof(ch));
+			s.push((float)atof(ch));
 		}
 
 		ch = strtok_s(NULL, " ", &next_token);
@@ -166,16 +168,16 @@ float express::solve()
       switch(s.popOperator())
       {
          case '+': 
-			 s.pushNumber(s.popNumber() + lastval); 
+			 s.push(s.popNumber() + lastval); 
 			 break;
          case '-':
-			 s.pushNumber(s.popNumber() - lastval);
+			 s.push(s.popNumber() - lastval);
 			 break;
          case '*':
-			 s.pushNumber(s.popNumber() * lastval);
+			 s.push(s.popNumber() * lastval);
 			 break;
          case '/':
-			 s.pushNumber(s.popNumber() / lastval);
+			 s.push(s.popNumber() / lastval);
 			 break;
          default:
 			 cout << "\nUnknown operator";
