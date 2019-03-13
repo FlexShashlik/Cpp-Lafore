@@ -4,6 +4,7 @@
 using namespace std;
 const int LEN = 80;    //length of expressions, in characters
 const int MAX = 40;    //size of stack
+const int TOP = 0;
 
 class Token
 {
@@ -55,26 +56,16 @@ private:
     int top;
 public:
     Stack()
-        { top = -1; }
+        { top = TOP; }
 
-    void push(char var)
-    { 
-		token[++top] = new Operator(var); 
-	}
-
-	void push(float var)
+	void push(Token* t)
 	{
-		token[++top] = new Number(var);
+		token[++top] = t;
 	}
 
-    char popOperator()
-    {
-		return token[top--]->getOperator();
-	}
-
-	float popNumber()
+	Token* pop() 
 	{
-		return token[top--]->getNumber();
+		return token[top--];
 	}
 
     int gettop()
@@ -110,48 +101,48 @@ void express::parse()
    {
 		if(*ch=='+' || *ch=='-' || *ch=='*' || *ch=='/')
 		{
-			if (s.gettop() == 0) {			//if it's first operator
-				//s.pushOperator(*ch);            //put on stack
-				s.push(*ch);
+			if (s.gettop() == TOP + 1) //if it's first operator
+			{			
+				s.push(new Operator(*ch));
 			}
 			else								//not first operator
 			{
-				lastval = s.popNumber();		//get previous digit
-				lastop = s.popOperator();		//get previous operator
+				lastval = s.pop()->getNumber();		//get previous digit
+				lastop = s.pop()->getOperator();		//get previous operator
 				//if this is * or / AND last operator was + or -
 				if( (*ch=='*' || *ch=='/') &&
 					(lastop=='+' || lastop=='-') )
 					{
-						s.push(lastop);	//restore last two pops
-						s.push(lastval);
+						s.push(new Operator(lastop));	//restore last two pops
+						s.push(new Number(lastval));
 					}
 				else							//in all other cases
 				{
 					switch(lastop)				//do last operation
 					{							//push result on stack
 						case '+':
-							s.push(s.popNumber() + lastval);
+							s.push(new Number(s.pop()->getNumber() + lastval));
 							break;
 						case '-':
-							s.push(s.popNumber() - lastval);
+							s.push(new Number(s.pop()->getNumber() - lastval));
 							break;
 						case '*':
-							s.push(s.popNumber() * lastval);
+							s.push(new Number(s.pop()->getNumber() * lastval));
 							break;
 						case '/':
-							s.push(s.popNumber() / lastval);
+							s.push(new Number(s.pop()->getNumber() / lastval));
 							break;
 						default:
 							cout << "\nUnknown oper";
 							exit(1);
 					}
 				}
-				s.push(*ch);			//put current op on stack
+				s.push(new Operator(*ch));			//put current op on stack
 			}
 		}
 		else
 		{
-			s.push((float)atof(ch));
+			s.push(new Number(atof(ch)));
 		}
 
 		ch = strtok_s(NULL, " ", &next_token);
@@ -162,29 +153,29 @@ float express::solve()
 {
    float lastval;
 
-   while(s.gettop() > 0)
+   while(s.gettop() > TOP + 1)
    {
-      lastval = s.popNumber();
-      switch(s.popOperator())
+      lastval = s.pop()->getNumber();
+      switch(s.pop()->getOperator())
       {
          case '+': 
-			 s.push(s.popNumber() + lastval); 
+			 s.push(new Number(s.pop()->getNumber() + lastval));
 			 break;
          case '-':
-			 s.push(s.popNumber() - lastval);
+			 s.push(new Number(s.pop()->getNumber() - lastval));
 			 break;
          case '*':
-			 s.push(s.popNumber() * lastval);
+			 s.push(new Number(s.pop()->getNumber() * lastval));
 			 break;
          case '/':
-			 s.push(s.popNumber() / lastval);
+			 s.push(new Number(s.pop()->getNumber() / lastval));
 			 break;
          default:
 			 cout << "\nUnknown operator";
 			 exit(1);
       }
    }
-   return s.popNumber();
+   return s.pop()->getNumber();
 }
 
 int main()
