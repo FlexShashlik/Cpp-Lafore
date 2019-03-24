@@ -1,2 +1,5 @@
 # Build results
 *.exe
+# Other
+*.dat
+.vscode
