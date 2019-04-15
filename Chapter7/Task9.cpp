@@ -16,7 +16,7 @@ public:
 
 	void put(int var)
 	{
-		if (tail == MAX - 1)
+		if (tail == MAX)
 		{
 			tail = 0;
 		}
@@ -26,7 +26,7 @@ public:
 
 	int get()
 	{
-		if (head == MAX - 1)
+		if (head == MAX)
 		{
 			head = 0;
 		}
